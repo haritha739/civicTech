@@ -67,8 +67,7 @@ http://localhost:5500/report.html
 7. Complaint is auto-approved or sent for manual review
 
 ---
-
-## 📊 Sample AI Response
+📊 Sample AI Response
 
 ```json
 {
@@ -78,10 +77,9 @@ http://localhost:5500/report.html
   "detected_objects": ["car", "person"],
   "status": "AUTO_VERIFIED"
 }
+📌 Important Notes
 
-## 📌 Important Notes
-
-* Frontend and Backend **must run simultaneously**
-* Do **not** open HTML files directly (`file://`)
+* Frontend and Backend must run simultaneously
+* Do not open HTML files directly (`file://`)
 * Always use `http://localhost:5500`
 
