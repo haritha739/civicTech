@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .nav-links a.active {
+      color: #4f46e5;
+      border-bottom: 2px solid #4f46e5;
+      padding-bottom: 4px;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .number {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    th, td {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #f9fafb;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .badge {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .high { background: #fde2e2; color: #b91c1c; }
+    .medium { background: #fef3c7; color: #92400e; }
+    .low { background: #dcfce7; color: #166534; }
+
+    .open { background: #fee2e2; color: #991b1b; }
+    .progress { background: #dbeafe; color: #1e40af; }
+    .resolved { background: #dcfce7; color: #166534; }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">CivicAI Complaint System</div>
+  <div class="nav-links">
+    <a href="./home.html">Home</a>
+    <a href="./report.html">Report Issue</a>
+    <a href="./admin.html" class="active">Admin</a>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Admin Dashboard</h1>
+  <p class="subtitle">Manage and monitor civic complaints</p>
+
+  <!-- CARDS -->
+  <div class="cards">
+    <div class="card">
+      <h3>Total Complaints</h3>
+      <div class="number" id="total">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Pending Review</h3>
+      <div class="number" id="pending">0</div>
+    </div>
+
+    <div class="card">
+      <h3>Resolved</h3>
+      <div class="number" id="resolved">0</div>
+    </div>
+
+    <div class="card">
+      <h3>High Severity</h3>
+      <div class="number" id="highSeverity">0</div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <h2>Recent Complaints</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Severity</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="complaintTable"></tbody>
+  </table>
+</div>
+
+<script>
+async function loadAdminData() {
+  const res = await fetch("http://localhost:5000/api/admin/complaints");
+  const complaints = await res.json();
+
+  document.getElementById("total").innerText = complaints.length;
+
+  let pending = 12, resolved = 9, high = 3;
+  const table = document.getElementById("complaintTable");
+  table.innerHTML = "";
+
+  complaints.forEach(c => {
+    if (c.status === "SUBMITTED") pending++;
+    if (c.status === "RESOLVED") resolved++;
+    if (c.severity === "CRITICAL") high++;
+
+    const severityClass =
+      c.severity === "CRITICAL" ? "high" :
+      c.severity === "HIGH" ? "medium" : "low";
+
+    const statusClass =
+      c.status === "RESOLVED" ? "resolved" :
+      c.status === "IN_PROGRESS" ? "progress" : "open";
+
+    table.innerHTML += `
+      <tr>
+        <td>${c.id}</td>
+        <td>${c.category}</td>
+        <td>${c.description}</td>
+        <td><span class="badge ${severityClass}">${c.severity}</span></td>
+        <td><span class="badge ${statusClass}">${c.status}</span></td>
+        <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("pending").innerText = pending;
+  document.getElementById("resolved").innerText = resolved;
+  document.getElementById("highSeverity").innerText = high;
+}
+
+loadAdminData();
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+/* If already logged in → skip login */
+auth.onAuthStateChanged(user => {
+  if (user) {
+    window.location.href = "home.html";
+  }
+});
+</script>
+<script src="lang.js"></script>
+
+</body>
+</html>

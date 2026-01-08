@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CivicAI Complaint System</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body{
+  background:#f5f7fb;
+  color:#1f2937;
+}
+
+/* ---------------- NAVBAR ---------------- */
+nav{
+  background:#ffffff;
+  padding:18px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 1px 6px rgba(0,0,0,0.08);
+}
+
+.logo{
+  font-weight:700;
+  font-size:20px;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:28px;
+  align-items:center;
+}
+
+nav a{
+  text-decoration:none;
+  color:#374151;
+  font-weight:500;
+}
+
+.btn{
+  padding:10px 18px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.btn-outline{
+  background:#fff;
+  border:1px solid #2563eb;
+  color:#2563eb;
+}
+
+.btn-primary{
+  background:#2563eb;
+  color:#fff;
+}
+
+/* ---------------- HERO ---------------- */
+.hero{
+  background:linear-gradient(135deg,#0f2a63,#1145b6);
+  color:#fff;
+  padding:90px 60px;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+}
+
+.hero h1{
+  font-size:54px;
+  line-height:1.1;
+}
+
+.hero h1 span{
+  color:#fbbf24;
+}
+
+.hero p{
+  margin-top:20px;
+  font-size:18px;
+  max-width:520px;
+  color:#e5e7eb;
+}
+
+.hero-buttons{
+  margin-top:35px;
+  display:flex;
+  gap:20px;
+}
+
+.hero-buttons .btn-primary{
+  background:#f59e0b;
+}
+
+.hero-stats{
+  display:flex;
+  gap:50px;
+  margin-top:45px;
+}
+
+.stat h2{
+  font-size:32px;
+}
+
+.stat p{
+  font-size:14px;
+  color:#d1d5db;
+}
+
+/* --------- STATUS CARDS (STAGGERED) --------- */
+.status-box{
+  position:relative;
+}
+
+.status-card{
+  background:#ffffff;
+  color:#111827;
+  padding:18px 22px;
+  border-radius:14px;
+  width:360px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.18);
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.status-card:nth-child(1){
+  position:absolute;
+  top:0;
+  right:0;
+}
+
+.status-card:nth-child(2){
+  position:absolute;
+  top:110px;
+  right:60px;
+}
+
+.status-card:nth-child(3){
+  position:absolute;
+  top:220px;
+  right:20px;
+}
+
+.icon{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:bold;
+}
+
+.green{ background:#22c55e; }
+.blue{ background:#3b82f6; }
+.orange{ background:#f97316; }
+
+.status-card h4{
+  font-size:15px;
+}
+
+.status-card p{
+  font-size:13px;
+  color:#6b7280;
+}
+
+/* ---------------- FEATURES ---------------- */
+.section{
+  padding:90px 60px;
+}
+
+.section h2{
+  text-align:center;
+  font-size:36px;
+}
+
+.section p{
+  text-align:center;
+  margin-top:10px;
+  color:#6b7280;
+}
+
+.features{
+  margin-top:50px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+.card{
+  background:#fff;
+  padding:30px;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
+}
+
+.card h3{
+  margin-top:15px;
+  font-size:18px;
+}
+
+.card p{
+  margin-top:10px;
+  font-size:14px;
+  color:#6b7280;
+  text-align:left;
+}
+
+/* ---------------- TIMELINE ---------------- */
+.timeline{
+  position:relative;
+  margin-top:60px;
+}
+
+.line{
+  position:absolute;
+  left:50%;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:#2563eb;
+}
+
+.step{
+  width:45%;
+  background:#fff;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
+  margin-bottom:60px;
+}
+
+.step.left{ margin-right:auto; }
+.step.right{ margin-left:auto; }
+
+.step span{
+  font-size:12px;
+  color:#2563eb;
+  font-weight:700;
+}
+
+/* ---------------- CTA ---------------- */
+.cta{
+  background:linear-gradient(135deg,#1145b6,#1e3a8a);
+  padding:90px 60px;
+  text-align:center;
+  color:#fff;
+  border-radius:18px;
+  margin:80px 60px;
+}
+
+.cta h2{
+  font-size:40px;
+}
+
+.cta p{
+  margin-top:12px;
+  color:#dbeafe;
+}
+
+.cta .hero-buttons{
+  justify-content:center;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer{
+  background:#fff;
+  padding:50px 60px;
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:30px;
+  border-top:1px solid #e5e7eb;
+}
+
+footer h4{
+  margin-bottom:12px;
+}
+
+footer p, footer li{
+  font-size:14px;
+  color:#6b7280;
+  list-style:none;
+  margin-bottom:8px;
+}
+#languageSelect{
+  margin-left:12px;
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  cursor:pointer;
+}
+.nav-links a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <div class="logo">CivicAI Complaint System</div>
+
+  <ul class="nav-links">
+    <div class="nav-links">
+  <a href="home.html" data-i18n="home">Home</a>
+  <a href="report.html" data-i18n="report">Report Issue</a>
+  <a href="track.html" data-i18n="track">Track Complaint</a>
+  <a href="admin.html" data-i18n="admin">Admin</a>
+
+  <!-- 🌐 Language Selector -->
+  <select id="languageSelect" onchange="changeLanguage(this.value)">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी</option>
+    <option value="te">తెలుగు</option>
+  </select>
+</div>
+
+
+  <div class="nav-actions">
+    <a href="login.html" class="signin">Sign In</a>
+    <a href="report.html" class="get-started">Get Started</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <button data-i18n="report_btn">Report an Issue</button>
+
+
+    <p data-i18n="hero_desc">
+  Our AI-verified complaint system ensures every pothole, broken
+  streetlight, and civic issue gets routed to the right department for
+  swift resolution.
+</p>
+
+    <div class="hero-buttons">
+  <a href="./report.html" class="btn btn-primary">Report an Issue →</a>
+  <a href="./track.html" class="btn btn-outline">Track Complaint</a>
+</div>
+
+    <div class="hero-stats">
+      <div class="stat"><h2>15K+</h2><p>Issues Resolved</p></div>
+      <div class="stat"><h2>98%</h2><p>AI Accuracy</p></div>
+      <div class="stat"><h2>48h</h2><p>Avg Resolution</p></div>
+    </div>
+  </div>
+
+  <div class="status-box">
+    <div class="status-card">
+      <div class="icon green">✓</div>
+      <div>
+        <h4>Pothole Repaired</h4>
+        <p>Main Street · Resolved in 24h</p>
+      </div>
+    </div>
+
+    <div class="status-card">
+      <div class="icon blue">⏱</div>
+      <div>
+        <h4>Streetlight Fixed</h4>
+        <p>Oak Avenue · In Progress</p>
+      </div>
+    </div>
+
+    <div class="status-card">
+      <div class="icon orange">📍</div>
+      <div>
+        <h4>Water Leak Detected</h4>
+        <p>Pine Road · AI Verified</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Everything You Need for <span style="color:#2563eb">Civic Reporting</span></h2>
+  <p>Cutting-edge AI with intuitive design.</p>
+
+  <div class="features">
+    <div class="card"><h3>Easy Reporting</h3><p>Upload photos or videos with GPS capture.</p></div>
+    <div class="card"><h3>AI Verification</h3><p>Detects duplicates and assigns severity.</p></div>
+    <div class="card"><h3>Smart Routing</h3><p>Auto-assigns correct department.</p></div>
+    <div class="card"><h3>Real-time Updates</h3><p>Track complaint progress instantly.</p></div>
+    <div class="card"><h3>Fraud Prevention</h3><p>Blocks fake or duplicate complaints.</p></div>
+    <div class="card"><h3>Analytics Dashboard</h3><p>Monitor patterns and performance.</p></div>
+    <div class="card"><h3>Mobile First</h3><p>Optimized for all devices.</p></div>
+    <div class="card"><h3>Fast Resolution</h3><p>Average resolution in 48 hours.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>How It <span style="color:#2563eb">Works</span></h2>
+  <p>From complaint to resolution in five steps.</p>
+
+  <div class="timeline">
+    <div class="line"></div>
+
+    <div class="step left"><span>STEP 01</span><h3>Report Issue</h3></div>
+    <div class="step right"><span>STEP 02</span><h3>AI Verification</h3></div>
+    <div class="step left"><span>STEP 03</span><h3>Auto-Assignment</h3></div>
+    <div class="step right"><span>STEP 04</span><h3>Resolution</h3></div>
+    <div class="step left"><span>STEP 05</span><h3>Verification</h3></div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready to Make Your City Better?</h2>
+  <p>Join thousands of citizens already making a difference.</p>
+  <div class="hero-buttons">
+    <button class="btn btn-primary">Report an Issue Now →</button>
+    <button class="btn btn-outline">Track Existing Complaint</button>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <h4>CivicAI</h4>
+    <p>AI-powered civic complaint system.</p>
+  </div>
+  <div>
+    <h4>Quick Links</h4>
+    <ul><li>Home</li><li>Report Issue</li><li>Track Complaint</li><li>Admin Dashboard</li></ul>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <ul><li>How It Works</li><li>FAQ</li><li>Privacy Policy</li><li>Terms</li></ul>
+  </div>
+  <div>
+    <h4>Contact</h4>
+    <p>support@civicai.gov</p>
+    <p>1-800-CIVIC-AI</p>
+    <p>City Hall, Metro City</p>
+  </div>
+</footer>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+/* If already logged in → skip login */
+auth.onAuthStateChanged(user => {
+  if (user) {
+    window.location.href = "home.html";
+  }
+});
+</script>
+<script src="lang.js"></script>
+
+</body>
+</html>

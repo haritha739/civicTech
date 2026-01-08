@@ -1,0 +1,14 @@
+
+POST http://localhost:5000/api/ai-verify
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="category"
+
+pothole
+--boundary
+Content-Disposition: form-data; name="image"; filename="test.jpg"
+Content-Type: image/jpeg
+
+< ./test.jpg
+--boundary--

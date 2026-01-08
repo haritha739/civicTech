@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Report Issue – CivicAI</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f6f8fc;
+  color: #222;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  background: #ffffff;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-links a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.nav-links a.active {
+  background: #f4a261;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.nav-actions button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.signin {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.getstarted {
+  background: #3b5bdb;
+  color: #fff;
+}
+
+/* ================= PAGE CONTENT ================= */
+.container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.container p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* ================= UPLOAD BOX ================= */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.upload-box {
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  color: #666;
+}
+
+.upload-box:hover {
+  border-color: #3b5bdb;
+}
+
+.upload-box input {
+  display: none;
+}
+
+/* ================= FORM ================= */
+.form-group {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+select, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  resize: vertical;
+  height: 120px;
+}
+
+/* ================= BUTTON ================= */
+.submit-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  background: #3b5bdb;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#addressForm input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+  <div class="logo">CivicAI Complaint System</div>
+
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="report.html" class="active">Report Issue</a>
+    <a href="track.html">Track Complaint</a>
+    <a href="admin.html">Admin</a>
+  </div>
+
+  <div class="nav-actions">
+    <button class="signin">Sign In</button>
+    <button class="getstarted">Get Started</button>
+  </div>
+</div>
+
+<!-- ================= PAGE CONTENT ================= -->
+<div class="container">
+  <h1>Report a Civic Issue</h1>
+  <p>Upload evidence and let our AI verify and route your complaint automatically.</p>
+
+  <div class="card">
+    <div class="card-title">📷 Upload Evidence</div>
+
+    <div class="form-group">
+  <label>Upload Image *</label>
+  <input type="file" id="imageInput" accept="image/*">
+</div>
+
+    <!-- CATEGORY -->
+     
+    <div class="form-group">
+      <label>Category *</label>
+      <select id="categorySelect" required>
+  <option value="">Select issue type</option>
+
+  <!-- ROAD & INFRA -->
+  <option value="pothole">Pothole</option>
+  <option value="manhole">Open Manhole</option>
+  <option value="road_damage">Road Damage</option>
+  <option value="fallen_pole">Fallen Electric Pole</option>
+  <option value="traffic_signal">Traffic Signal Not Working</option>
+  <option value="accident">Accident</option>
+
+  <!-- UTILITIES -->
+  <option value="broken_streetlight">Streetlight Not Working</option>
+  <option value="water_leak">Water Leak</option>
+  <option value="no_water">No Water Supply</option>
+  <option value="gas_leak">Gas Leak</option>
+  <option value="power_outage">Power Outage</option>
+
+  <!-- SANITATION -->
+  <option value="garbage">Garbage Overflow</option>
+  <option value="drainage_block">Drainage Blockage</option>
+  <option value="open_drain">Open Sewage</option>
+
+  <!-- SAFETY -->
+  <option value="fire">Fire Hazard</option>
+  <option value="illegal_construction">Illegal Construction</option>
+  <option value="stray_animals">Stray Animals</option>
+  <option value="public_safety">Public Safety Hazard</option>
+
+  <!-- OTHER -->
+  <option value="noise">Noise Pollution</option>
+  <option value="flooding">Flooding</option>
+  <option value="other">Other Civic Issue</option>
+</select>
+
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="form-group">
+      <label>Description *</label>
+      <textarea placeholder="Describe the issue clearly..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitComplaint()">
+      Submit Complaint
+    </button>
+
+  </div>
+</div>
+<!-- ================= LOCATION SECTION ================= -->
+<!-- ================= LOCATION SECTION ================= -->
+<div class="form-group">
+  <label>Location *</label>
+
+  <!-- OPTION 1: CURRENT LOCATION -->
+  <button
+    type="button"
+    class="submit-btn"
+    style="background:#2d6a4f; margin-bottom:15px;"
+    onclick="useCurrentLocation()"
+  >
+    📍 Use Current Location
+  </button>
+<!-- CONFIRM LOCATION BUTTON (HIDDEN INITIALLY) -->
+<button
+  type="button"
+  id="confirmLocationBtn"
+  class="submit-btn"
+  style="background:#198754; display:none; margin-bottom:15px;"
+  onclick="confirmLocation()"
+>
+  ✅ Confirm This Location
+</button>
+
+<!-- LOCATION STATUS TEXT -->
+<p id="locationStatus" style="margin-top:10px; color:#2d6a4f; font-weight:bold;"></p>
+
+  <!-- OPTION 2: ADD ADDRESS -->
+  <button
+    type="button"
+    class="submit-btn"
+    style="background:#6c757d;"
+    onclick="toggleAddressForm()"
+    
+  >
+    🏠 Add an Address
+  </button>
+
+  <!-- ADDRESS FORM (HIDDEN BY DEFAULT) -->
+  <div
+  id="addressForm"
+  style="
+    display:none;
+    margin:20px auto;
+    padding:25px;
+    border-radius:12px;
+    background:#f9fafb;
+    border:1px solid #ddd;
+    max-width:600px;
+  "
+>
+
+    <label>State</label>
+    <input type="text" id="state" placeholder="State">
+
+    <label style="margin-top:10px;">Area / City</label>
+    <input type="text" id="area" placeholder="Area or City">
+
+    <label style="margin-top:10px;">Street</label>
+    <input type="text" id="street" placeholder="Street name">
+
+    <label style="margin-top:10px;">Pincode</label>
+    <input type="text" id="pincode" placeholder="Pincode">
+
+    <label style="margin-top:10px;">Street No (optional)</label>
+    <input type="text" id="streetNo" placeholder="Street number">
+  </div>
+</div>
+
+</div>
+<script>
+/* ================= LOCATION LOGIC ================= */
+
+let selectedLocation = null;
+
+function useCurrentLocation() {
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported by your browser");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      selectedLocation = {
+        type: "gps",
+        latitude: lat,
+        longitude: lng
+      };
+
+      window.open(
+        `https://www.google.com/maps?q=${lat},${lng}`,
+        "_blank"
+      );
+
+      alert("Location captured successfully. Click Submit to continue.");
+    },
+    () => {
+      alert("Location access denied. Please enter address manually.");
+    }
+  );
+}
+
+function getManualAddress() {
+  const state = document.getElementById("state").value;
+  const area = document.getElementById("area").value;
+  const street = document.getElementById("street").value;
+  const pincode = document.getElementById("pincode").value;
+  const streetNo = document.getElementById("streetNo").value;
+
+  if (!state && !area && !street && !pincode) {
+    return null;
+  }
+
+  return {
+    type: "manual",
+    state,
+    area,
+    street,
+    pincode,
+    streetNo
+  };
+}
+
+/* ================= EXISTING FUNCTION ================= */
+function toggleAddressForm() {
+  const form = document.getElementById("addressForm");
+  form.style.display = form.style.display === "none" ? "block" : "none";
+}
+
+async function submitComplaint() {
+  const imageInput = document.getElementById("imageInput");
+  const image = imageInput.files[0];
+  const category = document.getElementById("categorySelect").value;
+
+  if (!image || !category) {
+    alert("Please upload image and select category");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("category", category);
+
+  const manualAddress = getManualAddress();
+
+  if (!selectedLocation && !manualAddress) {
+    alert("Please provide either current location or address");
+    return;
+  }
+
+  if (selectedLocation) {
+    formData.append("location_type", "gps");
+    formData.append("latitude", selectedLocation.latitude);
+    formData.append("longitude", selectedLocation.longitude);
+  }
+
+  if (manualAddress) {
+    formData.append("location_type", "manual");
+    formData.append("address", JSON.stringify(manualAddress));
+  }
+
+  try {
+    const res = await fetch("http://127.0.0.1:8000/verify", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    
+    alert("AI RESULT:\n" + JSON.stringify(data, null, 2));
+  } catch (err) {
+    alert("Network or server error");
+  }
+}
+</script>
+<script>
+/* ================= MAP LOCATION PICKER ================= */
+
+let map, marker;
+let selectedLocation = null;
+
+function useCurrentLocation() {
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition((pos) => {
+    openMap(pos.coords.latitude, pos.coords.longitude);
+  });
+}
+
+function openMap(lat, lng) {
+  document.getElementById("mapModal").style.display = "block";
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat, lng },
+    zoom: 16
+  });
+
+  marker = new google.maps.Marker({
+    position: { lat, lng },
+    map: map,
+    draggable: true
+  });
+}
+
+function confirmMapLocation() {
+  const pos = marker.getPosition();
+
+  selectedLocation = {
+    type: "gps",
+    latitude: pos.lat(),
+    longitude: pos.lng()
+  };
+
+  document.getElementById("mapModal").style.display = "none";
+  alert("📍 Location confirmed");
+}
+
+/* ================= EXISTING CODE BELOW ================= */
+
+async function submitComplaint() {
+  const image = document.getElementById("imageInput").files[0];
+  const category = document.getElementById("categorySelect").value;
+
+  if (!image || !category) {
+    alert("Please upload image and select category");
+    return;
+  }
+
+  if (!selectedLocation && !getManualAddress()) {
+    alert("Please add location or address");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("category", category);
+
+  if (selectedLocation) {
+    formData.append("location_type", "gps");
+    formData.append("latitude", selectedLocation.latitude);
+    formData.append("longitude", selectedLocation.longitude);
+  }
+
+  const res = await fetch("http://127.0.0.1:8000/verify", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  alert(JSON.stringify(data, null, 2));
+}
+</script>
+
+<script>
+async function submitComplaint() {
+  const imageInput = document.getElementById("imageInput");
+  const image = imageInput.files[0];
+  const category = document.getElementById("categorySelect").value;
+  const description = document.querySelector("textarea").value;
+
+  if (!image) {
+    alert("Please upload an image");
+    return;
+  }
+
+  if (!category) {
+    alert("Please select a category");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("category", category);
+
+  try {
+    const res = await fetch("http://127.0.0.1:8000/verify", {
+      method: "POST",
+      body: formData
+    });
+
+    if (!res.ok) {
+      throw new Error("Server returned error");
+    }
+
+    const data = await res.json();
+
+    alert(
+      "AI RESULT ✅\n\n" +
+      "Status: " + data.status + "\n" +
+      "Verified: " + data.verified + "\n" +
+      "Confidence: " + data.confidence + "\n" +
+      "Severity: " + data.severity
+    );
+
+  } catch (err) {
+    console.error(err);
+    alert("Network or server error");
+  }
+}
+</script>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+/* If already logged in → skip login */
+auth.onAuthStateChanged(user => {
+  if (user) {
+    window.location.href = "home.html";
+  }
+});
+</script>
+<script src="lang.js"></script>
+<!-- ================= MAP MODAL ================= -->
+<div id="mapModal" style="
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:9999;
+">
+  <div style="
+    position:absolute;
+    top:5%; left:5%;
+    width:90%; height:90%;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+  ">
+    <div id="map" style="width:100%; height:85%;"></div>
+
+    <div style="
+      height:15%;
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      padding:20px;
+      border-top:1px solid #ddd;
+    ">
+      <button
+        class="submit-btn"
+        style="background:#198754; width:auto; padding:12px 24px;"
+        onclick="confirmMapLocation()"
+      >
+        ✅ Confirm Location
+      </button>
+    </div>
+  </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+
+</body>
+</html>

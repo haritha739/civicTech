@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Track Complaint – CivicAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{margin:0;background:#f6f7fb;color:#1f2937}
+
+/* NAVBAR */
+.nav{
+  background:#fff;
+  padding:14px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #e5e7eb;
+}
+.nav .logo{font-weight:700}
+.nav a{
+  margin:0 12px;
+  text-decoration:none;
+  color:#374151;
+}
+.nav a.active{color:#2563eb;font-weight:600}
+.nav .right button{
+  margin-left:10px;
+  padding:8px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+}
+.login{background:#f3f4f6}
+.get{background:#2563eb;color:#fff}
+
+/* SECTION */
+.section{
+  max-width:1100px;
+  margin:40px auto;
+  background:#fff;
+  border-radius:16px;
+  padding:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+/* TRACK */
+.track input{
+  width:100%;
+  padding:14px;
+  margin:20px 0;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+}
+.track button{
+  width:100%;
+  padding:14px;
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+}
+
+/* CARDS */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.card{
+  padding:20px;
+  border-radius:14px;
+  background:#f9fafb;
+}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th,td{
+  padding:14px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+}
+.badge{
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+}
+.high{background:#fee2e2;color:#b91c1c}
+.medium{background:#fef3c7;color:#92400e}
+.low{background:#dcfce7;color:#166534}
+
+/* EMERGENCY */
+.emergency{
+  border:2px solid #ef4444;
+  background:#fff5f5;
+}
+.emergency-banner{
+  background:#ef4444;
+  color:#fff;
+  padding:14px;
+  text-align:center;
+  font-weight:700;
+  border-radius:12px;
+}
+.stepper{
+  display:flex;
+  justify-content:space-between;
+  margin:30px 0;
+}
+.step{
+  width:36px;height:36px;border-radius:50%;
+  background:#e5e7eb;
+  display:flex;align-items:center;justify-content:center
+}
+.step.active{background:#ef4444;color:#fff}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+/* CLICKABLE BOX */
+.box{
+  padding:20px;
+  border:2px solid #ef4444;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.2s;
+  background:#fff;
+}
+.box:hover{
+  background:#fee2e2;
+}
+.box.selected{
+  background:#ef4444;
+  color:#fff;
+  font-weight:600;
+}
+
+/* BUTTONS */
+.btns{
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
+}
+.back{
+  background:#e5e7eb;
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.cont{
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  background:#111827;
+  color:#d1d5db;
+  padding:40px;
+  margin-top:60px;
+}
+footer .cols{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="nav">
+  <div class="logo">CivicAI Complaint System</div>
+  <div>
+    <a href="./home.html">Home</a>
+<a href="./report.html">Report Issue</a>
+<a href="./track.html" class="active">Track Complaint</a>
+<a href="./admin.html">Admin</a>
+  </div>
+  <div class="right">
+    <button class="login">Login</button>
+    <button class="get">Get Started</button>
+  </div>
+</div>
+
+<!-- TRACK -->
+<div class="section track">
+  <h2>Track Complaint</h2>
+  <p>Enter your Complaint ID to check status</p>
+  <input placeholder="e.g. CIV-20240123">
+  <button onclick="trackComplaint()">Track Complaint</button>
+
+</div>
+
+<!-- EMERGENCY MODE -->
+<div class="section emergency">
+  <div class="emergency-banner">⚠ EMERGENCY MODE ACTIVE</div>
+
+  <div class="stepper">
+    <div class="step active">1</div>
+    <div class="step">2</div>
+    <div class="step">3</div>
+    <div class="step">4</div>
+  </div>
+
+  <h3>Emergency Contacts</h3>
+  <div class="grid">
+    <div class="box">🚓 Police — 100 / 112</div>
+    <div class="box">🚑 Ambulance — 108</div>
+    <div class="box">🔥 Fire — 101</div>
+  </div>
+
+  <h3>Select Emergency Type</h3>
+  <div class="grid" id="emergencyTypes">
+    <div class="box" data-type="Road Accident">Road Accident</div>
+    <div class="box" data-type="Open Manhole">Open Manhole</div>
+    <div class="box" data-type="Gas Leak">Gas Leak</div>
+    <div class="box" data-type="Fallen Electric Pole">Fallen Electric Pole</div>
+    <div class="box" data-type="Fire Hazard">Fire Hazard</div>
+    <div class="box" data-type="Flooding">Flooding</div>
+  </div>
+
+  <label style="margin-top:15px;display:block">
+    <input type="checkbox" id="dangerCheck">
+    This issue is dangerous and requires immediate action
+  </label>
+
+  <div class="btns">
+    <button class="back">← Back</button>
+    <button class="cont" onclick="continueComplaint()">Continue →</button>
+  </div>
+</div>
+
+<footer>
+  <div class="cols">
+    <div>
+      <h4>CivicAI</h4>
+      <p>AI-powered civic complaint system</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p>Home<br>Report Issue<br>Track Complaint<br>Admin</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>support@civicai.gov<br>1-800-CIVIC-AI</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+let selectedType = null;
+
+document.querySelectorAll("#emergencyTypes .box").forEach(box => {
+  box.addEventListener("click", () => {
+    document.querySelectorAll("#emergencyTypes .box")
+      .forEach(b => b.classList.remove("selected"));
+
+    box.classList.add("selected");
+    selectedType = box.dataset.type;
+  });
+});
+
+function continueComplaint(){
+  if(!selectedType){
+    alert("Please select an emergency type before continuing.");
+    return;
+  }
+
+  const isDangerous = document.getElementById("dangerCheck").checked;
+
+  alert(
+    "Complaint Type: " + selectedType +
+    "\nDangerous: " + (isDangerous ? "Yes" : "No")
+  );
+
+  // Later:
+  // window.location.href = "upload.html?type=" + selectedType;
+}
+</script>
+<script>
+async function trackComplaint() {
+  const id = document.querySelector("input").value.trim();
+
+  if (!id) {
+    alert("Please enter a Complaint ID");
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/complaint/${id}`);
+
+    if (!res.ok) {
+      alert("Complaint not found");
+      return;
+    }
+
+    const data = await res.json();
+
+    alert(
+      "Complaint Found ✅\n\n" +
+      "Category: " + data.category + "\n" +
+      "Status: " + data.status + "\n" +
+      "Severity: " + data.severity
+    );
+  } catch (err) {
+    alert("Server not reachable");
+  }
+}
+</script>
+
+</body>
+</html>
+<!-- ADMIN CARDS -->
+<div class="section">
+  <div class="cards">
+    <div class="card">
+      <h3>1,234</h3>
+      <p>Total Complaints</p>
+    </div>
+    <div class="card">
+      <h3>48</h3>
+      <p>Pending Review</p>
+    </div>
+    <div class="card">
+      <h3>23</h3>
+      <p>Resolved Today</p>
+    </div>
+    <div class="card">
+      <h3>15</h3>
+      <p>High Severity</p>
+    </div>
+  </div>
+</div>
+
+<!-- RECENT COMPLAINTS TABLE -->
+<div class="section">
+  <h3>Recent Complaints</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Category</th>
+      <th>Location</th>
+      <th>Severity</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>CIV-01</td>
+      <td>Pothole</td>
+      <td>Main Street</td>
+      <td><span class="badge high">High</span></td>
+      <td>In Progress</td>
+    </tr>
+    <tr>
+      <td>CIV-02</td>
+      <td>Streetlight</td>
+      <td>Oak Ave</td>
+      <td><span class="badge medium">Medium</span></td>
+      <td>Verified</td>
+    </tr>
+    <tr>
+      <td>CIV-03</td>
+      <td>Garbage</td>
+      <td>Pine Road</td>
+      <td><span class="badge low">Low</span></td>
+      <td>Resolved</td>
+    </tr>
+  </table>
+</div>
